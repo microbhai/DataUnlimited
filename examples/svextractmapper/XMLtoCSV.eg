@@ -1,0 +1,85 @@
+<dms-example-name>XML to CSV</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+In the following example, we will create a DMS extract mapper script which will extract data from a XML and subsequently be used to create CSV output. Example of the input XML is below between <dms-extractinputdata> & <dms-extractinputdata> tags.
+
+Requirements:
+ 
+1. XML with employee list and each employee having ID, Salary and optional bonus and sigin amount fields
+2. To be converted to CSV of following format
+
+ID, Salary,Bonus,SignInAmount
+567567,$ 264510.00,,
+2342345,$ 147412.00,,
+57979,$ 121676.00,,$ 50000.00
+678688,$ 121676.00,$ 5000.00,$ 10000.00
+
+
+Validate Script to check the output of the script.
+</dms-comment>
+<dms-extinputdata>
+
+<EmployeeList>
+	<Employee>
+		<ID>567567</ID>
+		<Salary>$ 264510.00</Salary>
+	</Employee>
+		<Employee>
+		<ID>2342345</ID>
+		<Bonus>$ 15000.00</Bonus>
+		<Salary>$ 147412.00</Salary>
+	</Employee>
+	<Employee>
+		<ID>57979</ID>
+		<Salary>$ 121676.00</Salary>
+		<SigningAmount>$ 50000.00</SigningAmount>
+	</Employee>
+	<Employee>
+		<ID>678688</ID>
+		<Salary>$ 121676.00</Salary>
+		<Bonus>$ 5000.00</Bonus>
+		<SigningAmount>$ 10000.00</SigningAmount>
+	</Employee>
+</EmployeeList>
+
+
+</dms-extinputdata>
+
+<dms-extmapper>
+node<DMSDELIM>top<DMSDELIM>
+
+node<DMSDELIM>employee<DMSDELIM>top<DMSDELIM>multiline<DMSDELIM><Employee><DMSDELIM></Employee><DMSDELIM>
+extract<DMSDELIM>ID<DMSDELIM>employee<DMSDELIM>between<DMSDELIM><ID><DMSDELIM></ID><DMSDELIM>
+extract<DMSDELIM>Salary<DMSDELIM>employee<DMSDELIM>between<DMSDELIM><Salary><DMSDELIM></Salary><DMSDELIM>
+
+node<DMSDELIM>signin<DMSDELIM>employee<DMSDELIM>singleline<DMSDELIM><SigningAmount><DMSDELIM>
+extract<DMSDELIM>signinvalue<DMSDELIM>signin<DMSDELIM>between<DMSDELIM><SigningAmount><DMSDELIM></SigningAmount><DMSDELIM>
+
+node<DMSDELIM>bonus<DMSDELIM>employee<DMSDELIM>singleline<DMSDELIM><Bonus><DMSDELIM>
+extract<DMSDELIM>bonusvalue<DMSDELIM>bonus<DMSDELIM>between<DMSDELIM><Bonus><DMSDELIM></Bonus><DMSDELIM>
+
+</dms-extmapper>
+
+#GrOuP#empList#1-1^^
+#SeGmEnT#1^^
+{#hide#{empCount^virtualfile^eachOccurence^top_node.txt^1^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#SeGmEnT#1^^
+ID, Salary,Bonus,SignInAmount#/SeGmEnT#
+#GrOuP#emp#{{empCount}}^^
+#SeGmEnT#1^^{#hide#{bonusCount^virtualfile^eachOccurence^employee_node.txt^2^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#SeGmEnT#1^^{#hide#{signinCount^virtualfile^eachOccurence^employee_node.txt^1^2^0^<DMSDELIM>^false^false^false^false}}
+#/SeGmEnT#
+
+#SeGmEnT#1^^{#show#{ID^virtualfile^eachOccurence^employee_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#SeGmEnT#1^^,#/SeGmEnT#
+#SeGmEnT#1^^{#show#{Salary^virtualfile^eachOccurence^employee_param.txt^2^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#SeGmEnT#1^^,#/SeGmEnT#
+#SeGmEnT#{{bonusCount}}^^{#show#{Bonus^virtualfile^eachOccurence^bonus_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#SeGmEnT#1^^,#/SeGmEnT#
+#SeGmEnT#{{signinCount}}^^{#show#{signin^virtualfile^eachOccurence^signin_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}#/SeGmEnT#
+#/GrOuP#
+#/GrOuP#
+</dms-dmsscript>
+</dms-example>

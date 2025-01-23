@@ -1,0 +1,46 @@
+<dms-example-name>Number, String & Date Parameters</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+In the following example, we will create a DMS script to show usage of various number and date parameter
+
+The parameter type roughly explains what that parameter can do, for example rangeRandomNumber gives us a random number within specified range.
+
+Let's have a look at various parameters below.
+
+Validate Script to check the output of the script.
+</dms-comment>
+
+#GrOuP#groupName#2^^
+#SeGmEnT#1^^
+------------
+Number Parameters
+{#show#{parameterName0^numberSequence^group^5-9^true^false}}
+{#show#{parameterName1^numberSequenceRange^group^5-9^true^false^2000^8000}}
+{#show#{parameterName2^randomNumber^group^8}}
+{#show#{parameterName3^rangeRandomNumber^group^6-9^true^100^999}}
+{#show#{parameterName3x^rangeRandomNumber^group^3^true^100^99999999}}
+#/SeGmEnT#
+#SeGmEnT#1^^
+------------
+Date Parameters
+{#show#{parameterName4^randomDateTime^group^yyyy-MM-dd hh:mm:ss^past}}
+{#show#{parameterName4x^randomDateTime^group^yyyy-MM-dd :mm:ss^future}}
+{#show#{parameterName4y^randomDateTime^group^yyyy-MM-dd hh:mm:ss^systemTime}}
+
+{#show#{parameterName5^rangeDateTime^group^yyyy-MM-dd hh:mm:ss^2015-01-01 19:19:19^2019-05-05 03:25:39}}
+{#show#{parameterName6^relativeDateTime^group^yyyy-MM-dd hh:mm:ss^-4}}
+------------
+String Parameters
+{#show#{parameterName7^randomLowerCaseString^group^5}}
+{#show#{parameterName8^randomMixedCaseString^group^4-8}}
+{#show#{parameterName9^randomUpperCaseString^group^4-10}}
+{#show#{parameterName10^randomAlphaNumericString^group^8}}
+#/SeGmEnT#
+#/GrOuP#
+
+
+</dms-dmsscript>
+</dms-example>
+ 

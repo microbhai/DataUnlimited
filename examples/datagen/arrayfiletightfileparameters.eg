@@ -1,0 +1,50 @@
+<dms-example-name>Array, File , Tight File Parameters</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+In the following example, we will create a DMS script to show usage of array, file and tight file parameter
+
+Array parameter is simple list of value separated by a delimiter (say a comma) and parameter values are obtained by iterating over the list
+
+File parameter is like a 2 dimensional array, multiple list of values in various columns, separated by delimited. A file parameter iterates over the values in a column.
+
+
+TightFile parameter is similar to file parameter, with the main difference that we have a primary column to drive the index controlling value change. All other columns are secondary and change value based on change in value of parameter over the primary column
+
+We need a file to store parameters in following format
+
+col1,col2,col3
+a,b,c
+x,y,z
+p,q,r
+
+Validate Script to check the output of the script.
+</dms-comment>
+
+#GrOuP#groupName#10^^
+#SeGmEnT#1^^
+------
+array parameter
+{#hide#{parameterName2^array^group^1,2,3,4,5^1^0^,^false^false}}
+------
+file parameter,^false^false^false^false}}
+{#show#{parameterName3^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^1^2^0^,^false^false^false^false}}
+{#show#{parameterName6^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName6^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName6^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName6^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName3^file^eachOccurrence^/Users/asha15/Desktop/Test/paramsample.txt^1^2^0^,^false^false^false^false}}
+------
+tightfile parameter
+{#show#{parameterName4^tightfile^eachOccurrence^primary^/Users/asha15/Desktop/Test/paramsample.txt^1^2^0^,^false^false^false^false}}
+{#show#{parameterName5^tightfile^eachOccurrence^secondary^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName5^tightfile^eachOccurrence^secondary^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName5^tightfile^eachOccurrence^secondary^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName5^tightfile^eachOccurrence^secondary^/Users/asha15/Desktop/Test/paramsample.txt^2^2^0^,^false^false^false^false}}
+{#show#{parameterName4^tightfile^eachOccurrence^primary^/Users/asha15/Desktop/Test/paramsample.txt^1^2^0^,^false^false^false^false}}
+#/SeGmEnT#
+#/GrOuP#
+</dms-dmsscript>
+</dms-example>
+ 

@@ -1,0 +1,62 @@
+<dms-example-name>JSON Example</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+In the following example, we will create a DMS script to create a JSON with list of people.
+
+Modeling requirements:
+ 
+1. Generate a sequence number for id
+2. Use random first and last names
+3. Use last name and some variations to create email address 
+4. Use Male or Female as gender
+
+We are using numberSequence, array and customDataType parameters.
+
+[{
+  "id": 1,
+  "first_name": "Jeanette",
+  "last_name": "Penddreth",
+  "email": "jpenddreth0@census.gov",
+  "gender": "Female",
+  "ip_address": "26.58.193.2"
+}, {
+  "id": 2,
+  "first_name": "Giavani",
+  "last_name": "Frediani",
+  "email": "gfrediani1@senate.gov",
+  "gender": "Male",
+  "ip_address": "229.179.4.212"
+}]
+
+Validate Script to check the output of the script. Change groupName#4^^ to groupName#10^^ and validate script again.
+
+</dms-comment>
+
+#GrOuP#groupName#1-1^^
+#SeGmEnT#1^^
+[
+#/SeGmEnT#
+#GrOuP#groupName#4^^
+#SeGmEnT#1^^
+{
+  "id": {#show#{parameterName1^numberSequence^group^4^false^false}},
+  "first_name": "{#show#{parameterName2^customDataType^group^#NAME_FIRST#}}",
+  "last_name": "{#show#{parameterName3^customDataType^group^#NAME_LAST#}}",
+  "email": "{#show#{parameterName4^randomUpperCaseString^group^1}}{#show#{parameterName3}}0@census.gov",
+  "gender": "{#show#{parameterNameX^array^group^Male,Female^1^0^,^true^false}}",
+  "ip_address": "{#show#{parameterName5^rangeRandomNumber^group^3^false^10^254}}.{#show#{parameterName6^rangeRandomNumber^group^3^false^10^254}}.{#show#{parameterName7^rangeRandomNumber^group^3^false^10^254}}.{#show#{parameterName8^rangeRandomNumber^group^3^false^10^254}}"
+}
+#/SeGmEnT#
+#SeGmEnT#!last^^
+,
+#/SeGmEnT#
+#/GrOuP#
+#SeGmEnT#1^^
+]
+#/SeGmEnT#
+#/GrOuP#
+</dms-dmsscript>
+</dms-example>
+ 

@@ -1,0 +1,5 @@
+TELE_AREACODE = { "{#show#{datParam_AreaCode^rangeRandomNumber^eachOccurence^1^false^100^999}}" }
+
+TELE_MIDDEL3 = { "{#show#{datParam_mid3^rangeRandomNumber^eachOccurence^1^false^100^999}}" }
+
+TELE_LAST4= { "{#show#{datParam_last4^rangeRandomNumber^eachOccurence^1^false^1000^9999}}" }

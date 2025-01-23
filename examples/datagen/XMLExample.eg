@@ -1,0 +1,66 @@
+<dms-example-name>XML Example</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+In the following example, we will create a DMS script to create an XML with employee list.
+
+Modeling requirements:
+ 
+1. Generate a 6 digit unique number for employee ID
+2. Use random first and last names
+3. Use random addresses
+4. Use firstname.lastname@xyz.COM as email addresses
+5. yyyy-mm-dd format for birthdays (random dates between 2012 and 2014)
+
+We are using uniqueNumber, rangeDateTime and customDataType parameters.
+
+<EmployeeList>
+                <Employee>
+                                <EmployeeID>105163</ EmployeeID >
+                                <Name>Ronald Talley</Name>
+                                <Address1>49435 SW Leffler Parkway</Address1>
+                                <Address2>Cecil NJ 81675 USA</Address2>
+                                <Email>Ronald.Talley@xyz.com</Email>
+                                <Birthday>2000-05-05</Birthday>
+                </Employee>
+                <Employee>
+                                <EmployeeID>616544</ EmployeeID >
+                                <Name>Jennifer Rich</Name>
+                                <Address1>69889 SW Hannawalt Court</Address1>
+                                <Address2>Wrightsville VT 63970 USA</Address2>
+                                <Email>Jennifer.Rich@xyz.com</Email>
+                                <Birthday>1998-03-07</Birthday>
+                </Employee>
+</EmployeeList>
+
+Validate Script to check the output of the script.
+</dms-comment>
+
+#GrOuP#EmployeeList#1^^
+ 
+#SeGmEnT#1^^
+<EmployeeList>
+#/SeGmEnT#
+ 
+#GrOuP#Employee#3^^
+#SeGmEnT#1^^
+                <Employee>
+                                <EmployeeID>{#show#{EmployeeID^uniqueNumber^group^6^true}}</ EmployeeID >
+                                <Name>{#show#{fName^customDataType^group^#NAME_FIRST#}} {#show#{lName^customDataType^group^#NAME_LAST#}}</Name>
+                                <Address1>{#show#{Address^customDataType^group^#ADDR_NUMBER# #ADDR_STREET_DIRECTION# #ADDR_STREET_NAME# #ADDR_STREET_NAME_SUFFIX#}}</Address1>
+                                <Address2>{#show#{Address2^customDataType^group^#ADDR_US_CITY# #ADDR_US_STATE# #ADDR_US_ZIPCODE# USA}}</Address2>
+                                <Email>{#show#{fName}}.{#show#{lName}}@xyz.com</Email>
+                                <Birthday>{#show#{DOB^rangeDateTime^group^yyyy-MM-dd^1995-08-01 00:00:00^2000-05-30 00:00:00}}</Birthday>
+                </Employee>
+#/SeGmEnT#
+#/GrOuP#
+ 
+#SeGmEnT#1^^
+</EmployeeList>
+#/SeGmEnT#
+ 
+#/GrOuP#
+</dms-dmsscript>
+</dms-example>
+ 

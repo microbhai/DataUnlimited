@@ -1,0 +1,87 @@
+<dms-example-name>Json Example</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+A purchase order Json goes as an input to the virtual service. Virtual service generates a response with all the items in the item list and show the status as "Updated"
+</dms-comment>
+
+
+<dms-extmapper>
+node<DMSDELIM>top<DMSDELIM>
+extract<DMSDELIM>po_id<DMSDELIM>top<DMSDELIM>fieldname<DMSDELIM>po_id<DMSDELIM>
+
+node<DMSDELIM>itemList<DMSDELIM>top<DMSDELIM>multiline<DMSDELIM><itemList><DMSDELIM></itemList><DMSDELIM>
+extract<DMSDELIM>item_id<DMSDELIM>itemList<DMSDELIM>fieldname<DMSDELIM>item_id<DMSDELIM>
+extract<DMSDELIM>item_code<DMSDELIM>itemList<DMSDELIM>fieldname<DMSDELIM>item_code<DMSDELIM>
+
+</dms-extmapper>
+
+#GrOuP#groupName1#1^^
+#SeGmEnT#1^^
+{#hide#{itemListCount^virtualfile^eachOccurance^top_node.txt^1^2^0^<DMSDELIM>^false^false^false^false}}
+#/SeGmEnT#
+#SeGmEnT#1^^
+{
+    "po_id":"{#show#{po_id^virtualfile^eachOccurence^top_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}",
+    "order_type": "Update",
+    "itemList": [
+#/SeGmEnT#
+        #GrOuP#groupName2#{{itemListCount}}^^
+         #SeGmEnT#1^^
+                   {
+                "item_id": "{#show#{item_id^virtualfile^eachOccurence^itemList_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}",
+                "item_code": "{#show#{item_code^virtualfile^eachOccurence^itemList_param.txt^2^2^0^<DMSDELIM>^false^false^false^false}}",
+                "item_status": "Updated"
+                   }#/SeGmEnT##SeGmEnT#!last^^,
+#/SeGmEnT#
+#/GrOuP#
+#SeGmEnT#1^^
+
+                ]
+}
+#/SeGmEnT#
+#/GrOuP#
+
+<dms-extinputdata>
+{
+    "userName": "chin",
+    "password": "123456",
+    "token": "anything",
+    "po_id": 1001,
+    "branch_code": "JETMY",
+    "supplier_id": "INV",
+    "supplier_code": 1001,
+    "reference_no": "20",
+    "remarks": "200",
+    "po_date": "Aug 6, 2012 9:58:28 PM",
+    "order_type": "PENDING",
+    "itemList": [
+        {
+	   "item_id": "X1000-01",
+            "gl_dimension_pkids": "1001,1002",
+            "gl_dimension_code": "XYZ,ABC",
+            "gl_code_reference": "anything",
+            "gl_code": "XYZ",
+            "item_code": "X1000",
+            "item_type": "INV",
+            "qty": 10,
+            "unit_price": 20
+        },
+        {
+            "item_id": "X1000-02",
+            "gl_dimension_pkids": "1001,1002",
+            "gl_dimension_code": "XYZ,ABC",
+            "gl_code_reference": "anything",
+            "gl_code": "XYZ",
+            "item_code": "X1000",
+            "item_type": "INV",
+            "qty": 10,
+            "unit_price": 20
+        }
+    ]
+}
+</dms-extinputdata>
+
+</dms-dmsscript>
+</dms-example>

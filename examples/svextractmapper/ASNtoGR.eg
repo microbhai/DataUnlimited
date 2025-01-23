@@ -1,0 +1,762 @@
+<dms-example-name>ASN to GR</dms-example-name>
+
+<dms-example>
+<dms-dmsscript>
+<dms-comment>
+complex XML
+</dms-comment>
+
+<dms-extmapper>
+node<DMSDELIM>top<DMSDELIM>
+extract<DMSDELIM>ShpmtNbr<DMSDELIM>top<DMSDELIM>fieldname<DMSDELIM>v1:PODocNbr<DMSDELIM><DMSDELIM>substring("4", "len()")<DMSDELIM>
+extract<DMSDELIM>ShpmtNbr1<DMSDELIM>top<DMSDELIM>fieldname<DMSDELIM>v1:PODocNbr<DMSDELIM><DMSDELIM>substring("1", "len()")<DMSDELIM>
+
+node<DMSDELIM>DlvryItm<DMSDELIM>top<DMSDELIM>multiline<DMSDELIM><v1:Itm><DMSDELIM></v1:Itm><DMSDELIM>
+
+extract<DMSDELIM>SzDesc<DMSDELIM>DlvryItm<DMSDELIM>fieldname<DMSDELIM>v1:SzDesc<DMSDELIM>
+extract<DMSDELIM>SAPPurchOrdItmNbr<DMSDELIM>DlvryItm<DMSDELIM>fieldname<DMSDELIM>v1:CustPOItmNbr<DMSDELIM>
+extract<DMSDELIM>EANUPC<DMSDELIM>DlvryItm<DMSDELIM>fieldname<DMSDELIM>v1:UPC<DMSDELIM>
+extract<DMSDELIM>StylCd<DMSDELIM>DlvryItm<DMSDELIM>fieldname<DMSDELIM>v1:MatlNbr<DMSDELIM>
+extract<DMSDELIM>ColrCd<DMSDELIM>DlvryItm<DMSDELIM>fieldname<DMSDELIM>v1:ColrCd<DMSDELIM>
+
+node<DMSDELIM>ItmSzDtl<DMSDELIM>DlvryItm<DMSDELIM>multiline<DMSDELIM><v1:ItmSzDtl><DMSDELIM></v1:ItmSzDtl><DMSDELIM>
+extract<DMSDELIM>AFSStckCatCd<DMSDELIM>ItmSzDtl<DMSDELIM>fieldname<DMSDELIM>v1:AFSStckCatCd<DMSDELIM>
+extract<DMSDELIM>UnitOfEntryQty<DMSDELIM>ItmSzDtl<DMSDELIM>fieldname<DMSDELIM>v1:POSzQty<DMSDELIM>multiply("1",".0")<DMSDELIM>
+
+node<DMSDELIM>ItmVAS<DMSDELIM>DlvryItm<DMSDELIM>multiline<DMSDELIM><v1:ItmVAS><DMSDELIM></v1:ItmVAS><DMSDELIM>
+
+</dms-extmapper>
+
+#GrOuP#GoodsReceiptGrp#1-1^^
+#SeGmEnT#1^^
+	<v1:GdsRcptMstr xmlns:v1="http://xmlns.int.XYZ.com/deliver/xsd/v1">
+#/SeGmEnT#
+	
+#SeGmEnT#1^^
+	   <v1:DlvryHdr>
+                <v1:ShpmtNbr>DMSV{#show#{ShpmtNbr^virtualfile^eachOccurence^top_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}</v1:ShpmtNbr>
+                <v1:TrdgPrtnrId>APLLXLSPUS861IH</v1:TrdgPrtnrId>
+                <v1:GdsRcptDt>{#show#{GdsRcptDt^randomDateTime^eachOccurence^yyyy-MM-dd^systemTime}}</v1:GdsRcptDt>
+                <v1:EEMShpmtNbr>SV{#show#{ShpmtNbr}}</v1:EEMShpmtNbr>
+#/SeGmEnT#
+#SeGmEnT#1^^
+{#hide#{NoOfLineItems^virtualfile^eachOccurence^top_node.txt^1^2^0^<DMSDELIM>^false^false^false^false}}
+#/SeGmEnT#
+#GrOuP#ItemLinesGrp#{{NoOfLineItems}}^^
+#SeGmEnT#1^^
+                <v1:DlvryItm>
+                    <v1:PlntIdCd>SGTC</v1:PlntIdCd>
+                    <v1:StrgLctnCd>0001</v1:StrgLctnCd>
+                    <v1:MvmntTypeCd>101</v1:MvmntTypeCd>
+                    <v1:SzDesc>{#show#{SzDesc^virtualfile^eachOccurence^DlvryItm_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}</v1:SzDesc>
+                  <v1:AFSStckCatCd>>{#show#{AFSStckCatCd^virtualfile^eachOccurence^ItmSzDtl_param.txt^1^2^0^<DMSDELIM>^false^false^false^false}}</v1:AFSStckCatCd>
+                    <v1:SAPPurchOrdNbr>C{#show#{ShpmtNbr1^virtualfile^eachOccurence^top_param.txt^2^2^0^<DMSDELIM>^false^false^false^false}}</v1:SAPPurchOrdNbr>
+                    <v1:SAPPurchOrdItmNbr>{#show#{SAPPurchOrdItmNbr^virtualfile^eachOccurence^DlvryItm_param.txt^2^2^0^<DMSDELIM>^false^false^false^false}}</v1:SAPPurchOrdItmNbr>
+                    <v1:UnitOfEntryQty>{#show#{UnitOfEntryQty^virtualfile^eachOccurence^ItmSzDtl_param.txt^2^2^0^<DMSDELIM>^false^false^false^false}}</v1:UnitOfEntryQty>
+                    <v1:EANUPC>{#show#{EANUPC^virtualfile^eachOccurence^DlvryItm_param.txt^3^2^0^<DMSDELIM>^false^false^false^false}}</v1:EANUPC>
+                    <v1:StylCd>{#show#{StylCd^virtualfile^eachOccurence^DlvryItm_param.txt^4^2^0^<DMSDELIM>^false^false^false^false}}</v1:StylCd>
+                    <v1:ColrCd>{#show#{ColrCd^virtualfile^eachOccurence^DlvryItm_param.txt^5^2^0^<DMSDELIM>^false^false^false^false}}</v1:ColrCd>
+                </v1:DlvryItm>        
+#/SeGmEnT#
+#/GrOuP#          
+ #SeGmEnT#1^^
+ 	</v1:DlvryHdr>
+       </v1:GdsRcptMstr>
+#/SeGmEnT#
+#/GrOuP#
+
+<dms-extinputdata>
+
+        <v1:CNVPOMstr xmlns:v1="http://xmlns.int.XYZ.com/PO/xsd/v1">
+            <v1:PO>
+                <v1:PODocNbr>0100130447</v1:PODocNbr>
+                <v1:POStatCd>04</v1:POStatCd>
+                <v1:CmpyCd>130</v1:CmpyCd>
+                <v1:PODocTypeCd>ZNB</v1:PODocTypeCd>
+                <v1:CustPONbr/>
+                <v1:CustPODt>2018-03-27</v1:CustPODt>
+                <v1:POPmtTrmsCd>N30</v1:POPmtTrmsCd>
+                <v1:PurchgOrgCd>2000</v1:PurchgOrgCd>
+                <v1:PurchgGrpCd>FT</v1:PurchgGrpCd>
+                <v1:CrncCd>USD</v1:CrncCd>
+                <v1:PODocDt>2017-11-16</v1:PODocDt>
+                <v1:LiasonOfcCd>CTS</v1:LiasonOfcCd>
+                <v1:Incotrms1Cd>FCA</v1:Incotrms1Cd>
+                <v1:Incotrms2Cd>CONSOLIDATOR</v1:Incotrms2Cd>
+                <v1:DocNbr>0000000066151864</v1:DocNbr>
+                <v1:DocCrtDt>2018-12-13</v1:DocCrtDt>
+                <v1:DocCrtTm>12:39:39</v1:DocCrtTm>
+                <v1:PurchgGrpDesc>Footwear</v1:PurchgGrpDesc>
+                <v1:VerNbr>00000005</v1:VerNbr>
+                <v1:VerRsnCd>ZDAT</v1:VerRsnCd>
+                <v1:VerRsnDesc>Date(s)</v1:VerRsnDesc>
+                <v1:AntiDvrtCd>M88</v1:AntiDvrtCd>
+                <v1:POPmtTrmsDesc>Net 30 Days</v1:POPmtTrmsDesc>
+                <v1:FrstSaleInd>N</v1:FrstSaleInd>
+                <v1:MIDCd>TWATHGLO81TAI</v1:MIDCd>
+                <v1:LgstcsSvcProvdrCd>APLL</v1:LgstcsSvcProvdrCd>
+                <v1:CaseLblType>80</v1:CaseLblType>
+                <v1:CustDCNbr/>
+                <v1:POTypeCd>ZNB</v1:POTypeCd>
+                <v1:POTxtDtl>
+                    <v1:TxtId>0</v1:TxtId>
+                    <v1:POTxt>KOHLS PTC VAS REQUIRED</v1:POTxt>
+                    <v1:TxtSeq> 1</v1:TxtSeq>
+                </v1:POTxtDtl>
+                <v1:POTxtDtl>
+                    <v1:TxtId>0</v1:TxtId>
+                    <v1:POTxt/>
+                    <v1:TxtSeq> 2</v1:TxtSeq>
+                </v1:POTxtDtl>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>WE</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>US01</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>US California</v1:AddrNm>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>SO</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>0000010814</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>KOHL'S DEPT STORE INC</v1:AddrNm>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>IR</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>52-229688400</v1:PrtnrDesc>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>LD</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>0002</v1:PrtnrDesc>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:VendId>6R</v1:VendId>
+                    <v1:PrtnrFuncCd>MF</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>4100000825</v1:PrtnrDesc>
+                    <v1:FctyCd>RYC</v1:FctyCd>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>PT. POU YUEN INDONESIA</v1:AddrNm>
+                        <v1:StAddrLin2Desc>Desa Cianjur</v1:StAddrLin2Desc>
+                        <v1:PstlCd>43284</v1:PstlCd>
+                        <v1:CityNm>Cianjur</v1:CityNm>
+                        <v1:ProvStCd/>
+                        <v1:CtryCd>ID</v1:CtryCd>
+                        <v1:CtryNm>Indonesia</v1:CtryNm>
+                        <v1:StAddrLinDesc>JL. RAYA KM 7, KP</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>SE</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>0008000157</v1:PrtnrDesc>
+                    <v1:SellerId>4100000770</v1:SellerId>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>Trading Company B.V</v1:AddrNm>
+                        <v1:StAddrLin2Desc/>
+                        <v1:PstlCd>117740</v1:PstlCd>
+                        <v1:CityNm>Singapore</v1:CityNm>
+                        <v1:ProvStCd/>
+                        <v1:CtryCd>SG</v1:CtryCd>
+                        <v1:StAddrLinDesc>30 XYZ Road #10-31/32 Map</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>ST</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>US010002</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>US California</v1:AddrNm>
+                        <v1:StAddrLin2Desc/>
+                        <v1:StAddrLin3Desc/>
+                        <v1:StAddrLin4Desc/>
+                        <v1:PstlCd>91761</v1:PstlCd>
+                        <v1:CityNm>Ontario</v1:CityNm>
+                        <v1:ProvStCd>CA</v1:ProvStCd>
+                        <v1:CtryCd>US</v1:CtryCd>
+                        <v1:StAddrLinDesc>1460 S. Ranch Road</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>CN</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>52-229688400</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>ZYX Inc.</v1:AddrNm>
+                        <v1:StAddrLin2Desc/>
+                        <v1:StAddrLin3Desc/>
+                        <v1:StAddrLin4Desc/>
+                        <v1:PstlCd>02114</v1:PstlCd>
+                        <v1:CityNm>Boston</v1:CityNm>
+                        <v1:ProvStCd>MA</v1:ProvStCd>
+                        <v1:CtryCd>US</v1:CtryCd>
+                        <v1:StAddrLinDesc>1 Lovejoy Wharf</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>Z1</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>US010002</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>US California</v1:AddrNm>
+                        <v1:StAddrLin2Desc/>
+                        <v1:StAddrLin3Desc/>
+                        <v1:StAddrLin4Desc/>
+                        <v1:PstlCd>91761</v1:PstlCd>
+                        <v1:CityNm>Ontario</v1:CityNm>
+                        <v1:ProvStCd>CA</v1:ProvStCd>
+                        <v1:CtryCd>US</v1:CtryCd>
+                        <v1:StAddrLinDesc>1460 S. Ranch Road</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>BY</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>130</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm>Inc.</v1:AddrNm>
+                        <v1:StAddrLin2Desc/>
+                        <v1:PstlCd>02114</v1:PstlCd>
+                        <v1:CityNm>Boston</v1:CityNm>
+                        <v1:ProvStCd>MA</v1:ProvStCd>
+                        <v1:CtryCd>US</v1:CtryCd>
+                        <v1:StAddrLinDesc>1 Lovejoy Wharf</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:POPrtnr>
+                    <v1:PrtnrFuncCd>NP</v1:PrtnrFuncCd>
+                    <v1:PrtnrDesc>0000000667</v1:PrtnrDesc>
+                    <v1:POAddrDtl>
+                        <v1:AddrNm> INT.</v1:AddrNm>
+                        <v1:StAddrLin2Desc>3 TECHNOLOGY DRIVE</v1:StAddrLin2Desc>
+                        <v1:StAddrLin3Desc/>
+                        <v1:StAddrLin4Desc/>
+                        <v1:PstlCd>01960</v1:PstlCd>
+                        <v1:CityNm>PEABODY</v1:CityNm>
+                        <v1:ProvStCd>MA</v1:ProvStCd>
+                        <v1:CtryCd>US</v1:CtryCd>
+                        <v1:TeleNbr>9785310001</v1:TeleNbr>
+                        <v1:FaxNbr/>
+                        <v1:EMailAddrNm>CO-BOS@EXPEDITORS.COM</v1:EMailAddrNm>
+                        <v1:StAddrLinDesc>CO BROKERAGE TEAM</v1:StAddrLinDesc>
+                    </v1:POAddrDtl>
+                </v1:POPrtnr>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS OX OCEAN BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>PASTEL BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516515</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>1</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>OCEAN BLISS</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>16</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0100</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516515</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0001</v1:POSchedLinNbr>
+                        <v1:POSzQty>615.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>10</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516614</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>1</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>BLISS</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>06</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0050</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516614</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0002</v1:POSchedLinNbr>
+                        <v1:POSzQty>615.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>5</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS OX BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>PASTEL BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516638</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>1</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>BLISS</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>08</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0060</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516638</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0003</v1:POSchedLinNbr>
+                        <v1:POSzQty>615.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>6</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS OX BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516652</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>2</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>BLISS</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>10</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0070</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516652</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0004</v1:POSchedLinNbr>
+                        <v1:POSzQty>1230.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>7</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS OX BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>PASTEL BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516676</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>3</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>OCEAN</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>12</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0080</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516676</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0005</v1:POSchedLinNbr>
+                        <v1:POSzQty>1845.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>8</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+                <v1:Itm>
+                    <v1:POItmDlvryDt>2018-03-24</v1:POItmDlvryDt>
+                    <v1:MatlNbr>160460F</v1:MatlNbr>
+                    <v1:MatlShortNm>CTAS OX BLISS</v1:MatlShortNm>
+                    <v1:GdsAtConsolrRsnCd>C1</v1:GdsAtConsolrRsnCd>
+                    <v1:POShpgInstrns>S</v1:POShpgInstrns>
+                    <v1:NetPrc>8.49</v1:NetPrc>
+                    <v1:POShpgInstrnsDesc>Ocean</v1:POShpgInstrnsDesc>
+                    <v1:POOnOrdQty>5535.000</v1:POOnOrdQty>
+                    <v1:OGACDt>2018-02-19</v1:OGACDt>
+                    <v1:GdsAtConsolrDt>2018-02-20</v1:GdsAtConsolrDt>
+                    <v1:SilhCd>OX</v1:SilhCd>
+                    <v1:ColrLongDesc>BLUE</v1:ColrLongDesc>
+                    <v1:CustPOItmNbr>00010</v1:CustPOItmNbr>
+                    <v1:UPC>888755516690</v1:UPC>
+                    <v1:POAcptncDt>2017-11-22</v1:POAcptncDt>
+                    <v1:RGACDt>2018-02-19</v1:RGACDt>
+                    <v1:HTSCd>6404118160</v1:HTSCd>
+                    <v1:BndgRuleNbr/>
+                    <v1:MPONbr/>
+                    <v1:PrtofDischrgId>LAX</v1:PrtofDischrgId>
+                    <v1:CaseCnt>1</v1:CaseCnt>
+                    <v1:IAN/>
+                    <v1:ItmGrsWt/>
+                    <v1:ColrCd>456</v1:ColrCd>
+                    <v1:MatlConvnCd>8</v1:MatlConvnCd>
+                    <v1:AFSSKURndgQty>1.000</v1:AFSSKURndgQty>
+                    <v1:Vol/>
+                    <v1:StylNbr>160460F</v1:StylNbr>
+                    <v1:PortOfDischrgNm>Los Angeles, US</v1:PortOfDischrgNm>
+                    <v1:ProdClrwyShortDesc>OCEAN BLISS</v1:ProdClrwyShortDesc>
+                    <v1:RoyIntntInd>X</v1:RoyIntntInd>
+                    <v1:BscCnsttntOfMatl>CANVAS</v1:BscCnsttntOfMatl>
+                    <v1:GndrAgeGrpg>UNISEX</v1:GndrAgeGrpg>
+                    <v1:LinngCat>TEXTILE</v1:LinngCat>
+                    <v1:MatlCat>TEXTILE</v1:MatlCat>
+                    <v1:OutslCd>TD-009SF</v1:OutslCd>
+                    <v1:OutslDesc>TEXTILE/RUBBER</v1:OutslDesc>
+                    <v1:SegCd>CAS</v1:SegCd>
+                    <v1:ProdsetInd>N</v1:ProdsetInd>
+                    <v1:WMSSzRngCd>F4</v1:WMSSzRngCd>
+                    <v1:WMSSzRltvPstn>14</v1:WMSSzRltvPstn>
+                    <v1:PortOfOrigDprtrDt>2018-02-23</v1:PortOfOrigDprtrDt>
+                    <v1:FbrCntntCd/>
+                    <v1:SzDesc>0090</v1:SzDesc>
+                    <v1:GenescoStylNbr/>
+                    <v1:REXId/>
+                    <v1:OrigQlfnCd/>
+                    <v1:FTAQlfdCd/>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd>GPM</v1:CondTypeCd>
+                        <v1:TotCondValAmt>0.00</v1:TotCondValAmt>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmLvlPrc>
+                        <v1:CondTypeCd/>
+                        <v1:NetPrc>8.49</v1:NetPrc>
+                        <v1:GrsPrc>8.49</v1:GrsPrc>
+                        <v1:IntlPrc>12.24</v1:IntlPrc>
+                        <v1:DistrPrc>12.85</v1:DistrPrc>
+                        <v1:LicPrc>12.24</v1:LicPrc>
+                    </v1:ItmLvlPrc>
+                    <v1:ItmVAS>
+                        <v1:SlsOrdDocHdrNbr>0040023096</v1:SlsOrdDocHdrNbr>
+                        <v1:SOLinItmNbr>000011</v1:SOLinItmNbr>
+                        <v1:VASCd>093</v1:VASCd>
+                        <v1:StylNbr>7075888755516690</v1:StylNbr>
+                        <v1:CustPPKId>400102393206</v1:CustPPKId>
+                        <v1:CustMSRP>55.00</v1:CustMSRP>
+                        <v1:MSRP>55.00</v1:MSRP>
+                        <v1:OutletPrc>55.00</v1:OutletPrc>
+                        <v1:VASMatlValNm>139</v1:VASMatlValNm>
+                        <v1:VASMatlValNm2>70 75</v1:VASMatlValNm2>
+                        <v1:VASMatlValNm3>732</v1:VASMatlValNm3>
+                        <v1:VASMatlValNm4>MA</v1:VASMatlValNm4>
+                        <v1:CrncCd>USD</v1:CrncCd>
+                        <v1:CustDeptDesc/>
+                        <v1:CustDeptNbr>139</v1:CustDeptNbr>
+                    </v1:ItmVAS>
+                    <v1:ItmSzDtl>
+                        <v1:POSchedLinNbr>0006</v1:POSchedLinNbr>
+                        <v1:POSzQty>615.000</v1:POSzQty>
+                        <v1:UOMCd>PR</v1:UOMCd>
+                        <v1:SzDesc>9</v1:SzDesc>
+                        <v1:AFSStckCatCd>  Z414100011</v1:AFSStckCatCd>
+                    </v1:ItmSzDtl>
+                </v1:Itm>
+            </v1:PO>
+        </v1:CNVPOMstr>
+
+
+</dms-extinputdata>
+
+</dms-dmsscript>
+</dms-example>

@@ -1,0 +1,7 @@
+ADDR_REAL_LAT = { "{#show#{lat^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^2^2^0^,^false^false^false^false}}" }
+ADDR_REAL_LONG = { "{#show#{long^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^3^2^0^,^false^false^false^false}}" }
+ADDR_REAL_CITY = { "{#show#{city^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^4^2^0^,^false^false^false^false}}" }
+ADDR_REAL_STATE = { "{#show#{state^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^5^2^0^,^false^false^false^false}}" }
+ADDR_REAL_COUNTY = { "{#show#{county^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^6^2^0^,^false^false^false^false}}" }
+ADDR_REAL_ZIPCODE = { "{#show#{zipcode^file^eachOccurence^<filepath>/ParamDataFiles/State_City_Zipcode.txt^1^2^0^,^false^false^false^false}}" }
+
